@@ -53,7 +53,7 @@ public class InventoryServiceImpl implements InventoryService{
 		
 		logger.info("Inventory Service implementation setDataToInventory starts: ");
 		Random random = new Random();
-		long pnrLong = random.nextLong(999999, 9999999);
+		long pnrLong = random.nextLong();
 		String pnrString = Long.toString(pnrLong);
 		inven.setFlightId(flightDetails.getId());
 		inven.setFlightName(flightDetails.getName());
