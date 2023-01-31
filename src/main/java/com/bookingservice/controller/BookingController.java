@@ -18,7 +18,7 @@ import com.bookingservice.service.BookingService;
 import com.bookingservice.service.Impl.FareValidateService;
 
 @RestController
-@RequestMapping("/bookingservice")
+//@RequestMapping("/bookingservice")
 public class BookingController {
 
 	@Autowired(required = true)
