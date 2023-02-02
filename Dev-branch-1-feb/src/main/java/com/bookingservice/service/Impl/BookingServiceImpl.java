@@ -76,8 +76,8 @@ public class BookingServiceImpl implements BookingService {
 		}
 		if(allFlight.contains(booking.getBookingFlight())) {
 			
-			if(booking.getNoOfPassengers()!=booking.getPassengers().size()) {
-				throw new PassengerCountDetails(booking.getNoOfPassengers(),booking.getPassengers().size());
+			if(booking.getNoOfPassengers()==0 || booking.getNoOfPassengers()!=booking.getPassengers().size()) {
+				throw new PassengerCountDetails();
 			}
 			if(booking.getSource().equalsIgnoreCase(booking.getDestination())) {
 				throw new CheckSourceAndDestination();
@@ -95,7 +95,7 @@ public class BookingServiceImpl implements BookingService {
 			 	
 			 	}
 			}
-			if(booking.getArrDate().equals(booking.getDepartDate()) && booking.getArrTime().compareTo(booking.getDepartTime())<0) {
+			if(booking.getArrDate().equals(booking.getDepartDate()) && booking.getArrTime().compareTo(booking.getDepartTime())<=0) {
 				throw new CheckArrAndDepartTime(booking.getArrTime(),booking.getDepartTime());
 			}
 			if(booking.getArrDate().before(booking.getDepartDate())) {
