@@ -101,17 +101,19 @@
 			<artifactId>lombok</artifactId>
 			<scope>provided</scope>
 		</dependency>
+		
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-boot-starter</artifactId>
 			<version>3.0.0</version>
 		</dependency>
-		
-		<dependency> 
-			<groupId>com.microsoft.azure</groupId> 
-			<artifactId>azure-servicebus</artifactId> 
-			<version>1.0.0</version> 
+
+		<dependency>
+		  <groupId>com.azure.spring</groupId>
+		  <artifactId>spring-cloud-azure-starter-servicebus-jms</artifactId>
+		  <version>4.0.0</version>
 		</dependency>
+
 		
 	</dependencies>
 

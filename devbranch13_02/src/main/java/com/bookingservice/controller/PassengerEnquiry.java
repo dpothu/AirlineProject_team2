@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bookingservice.dto.PassengersReq;
-import com.bookingservice.entities.PassengersEntity;
 import com.bookingservice.service.PassengersService;
 
 

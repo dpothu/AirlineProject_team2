@@ -1,10 +1,8 @@
 package com.bookingservice.dto;
 
-import java.util.Date;
+import java.util.List;
 
 import org.springframework.stereotype.Component;
-
-import com.bookingservice.entities.BaseEntity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,13 +20,13 @@ import lombok.ToString;
 @Component
 public class BookingResponse{
 	private long bookingId;
-	private String pnr;
+	private String pnrNo;
 	private String sourceCity;
 	private String DestinationCity;
 	private String flightNumber;
 	private int noOfPassengers;
-	private Date bookingDate;
-	private Date travelDate;
+	private String bookingDate;
+	private String travelDate;
 	private String className;
-	
+	private List<PassengersReq> passengers;
 }

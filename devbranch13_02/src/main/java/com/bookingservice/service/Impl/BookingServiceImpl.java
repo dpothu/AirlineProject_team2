@@ -13,9 +13,10 @@ import com.bookingservice.repository.FlightRepository;
 import com.bookingservice.repository.InventoryRepository;
 import com.bookingservice.service.BookingService;
 import com.bookingservice.service.InventoryService;
-import com.microsoft.azure.servicebus.QueueClient;
 import com.bookingservice.dto.BookMainReq;
 import com.bookingservice.dto.BookMainResponse;
+import com.bookingservice.dto.BookingResponse;
+import com.bookingservice.dto.PassengersReq;
 import com.bookingservice.entities.BookingEntity;
 import com.bookingservice.entities.FlightEntity;
 import com.bookingservice.entities.InventoryEntity;
@@ -49,6 +50,9 @@ public class BookingServiceImpl implements BookingService {
 	BookMainResponse bookResponse;
 	
 	@Autowired
+	BookingResponse bookingResponse;
+	
+	@Autowired
 	InventoryEntity invenData;
 	
 	@Autowired
@@ -58,10 +62,10 @@ public class BookingServiceImpl implements BookingService {
 	int seatCount=1;
 	@SuppressWarnings("deprecation")
 	@Override
-	public BookMainResponse newBooking(BookMainReq bookData) {
+	public BookingResponse newBooking(BookMainReq bookData) {
 
 		logger.info("Booking service implementation new booking starts: ");
-		BookingEntity booking = bookData.getBookingData();
+		BookingEntity booking = bookData.setBookingDetails();
 		BookingEntity bookDataForResponse;
 		
 		List<FlightEntity> allFlight = flightRepo.findAll();
@@ -122,24 +126,35 @@ public class BookingServiceImpl implements BookingService {
 		logger.info("Booking service implementation new booking ends: ");
 		return this.bookingResponse(bookDataForResponse,invenData);
 	}
+
 	
-	public BookMainResponse bookingResponse(BookingEntity bookDataForResponse,InventoryEntity invenData) {
-		
+	public BookingResponse bookingResponse(BookingEntity bookDataForResponse,InventoryEntity invenData) {
 		logger.info("Booking service implementation Booking response starts: ");
-		bookResponse.setBookingId(bookDataForResponse.getId());
-		bookResponse.setFlightId(bookDataForResponse.getBookingFlight().getId());
-		bookResponse.setInventoryId(invenData.getInventoryId());
-		bookResponse.setNumberOfPassengers(bookDataForResponse.getNoOfPassengers());
-		bookResponse.setPnrNumber(invenData.getPnr());
-		bookResponse.setFlightName(bookDataForResponse.getFlightName());
-		bookResponse.setBookingStatus("***Booking is successful for this request***");
-		logger.info("Booking service implementation Booking response ends: ");
-		return bookResponse;
+		bookingResponse.setBookingId(bookDataForResponse.getId());
+		bookingResponse.setPnrNo(invenData.getPnr());
+		bookingResponse.setFlightNumber(bookDataForResponse.getFlightName());
+		bookingResponse.setClassName(bookDataForResponse.getClassName());
+		bookingResponse.setSourceCity(bookDataForResponse.getSource());
+		bookingResponse.setDestinationCity(bookDataForResponse.getDestination());
+		bookingResponse.setBookingDate(bookDataForResponse.getCreatedDt().toString());
+		bookingResponse.setTravelDate(bookDataForResponse.getDepartDate().toString());
+		bookingResponse.setNoOfPassengers(bookDataForResponse.getNoOfPassengers());
+		List<PassengersReq> passengerList=new ArrayList<PassengersReq>();
+		List<PassengersEntity> pl=bookDataForResponse.getPassengers();
+		for(PassengersEntity p:pl) {
+			 PassengersReq pr=new PassengersReq();
+			 pr.setBookingId(bookDataForResponse.getId());
+			 pr.setFirstName(p.getFirstName());
+			 pr.setMiddleName(p.getMiddleName());
+			 pr.setLastName(p.getLastName());
+			 pr.setEmail(p.getEmail());
+			 pr.setPhoneNo(p.getPhoneNo());
+			 pr.setPassengerId(p.getId());
+			 passengerList.add(pr);
+		 }
+		bookingResponse.setPassengers(passengerList);
+		return bookingResponse;
 	}
-	
-//	public boolean sendToQueue(BookingEntity booking) {
-//		QueueClient queue= new QueueClient("Endpoint=sb://bookingcheckin.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=GjbVHqofC3n14k5RULZ2Vx9GlXoeB8cJu+ASbPGFEzs=;","booking")
-//	}
 
 
 }

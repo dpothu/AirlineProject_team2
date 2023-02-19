@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bookingservice.dto.BookingResponse;
+import com.bookingservice.dto.PassengersReq;
 import com.bookingservice.entities.BookingEntity;
 import com.bookingservice.entities.InventoryEntity;
+import com.bookingservice.entities.PassengersEntity;
 import com.bookingservice.exception.BookingIdNotFound;
 import com.bookingservice.repository.BookingRepository;
 import com.bookingservice.repository.InventoryRepository;
@@ -36,15 +38,29 @@ public class BookingEnquiryServiceImpl implements BookingEnquiryService{
 				br.setSourceCity(be.getSource());
 				br.setDestinationCity(be.getDestination());
 				br.setFlightNumber(be.getFlightName());
-				br.setTravelDate(be.getDepartDate());
+				br.setTravelDate(be.getDepartDate().toString());
 				br.setNoOfPassengers(be.getNoOfPassengers());
-				br.setBookingDate(be.getCreatedDt());
+				br.setBookingDate(be.getCreatedDt().toString());
 				for(InventoryEntity in:invenList) {
 					if(in.getInventoryId()==be.getBookingInventory().getInventoryId()) {
-						br.setPnr(in.getPnr());
+						br.setPnrNo(in.getPnr());
 						break;
 					}
 				}
+				List<PassengersReq> passengerList=new ArrayList<PassengersReq>();
+				List<PassengersEntity> pl=be.getPassengers();
+				for(PassengersEntity p:pl) {
+					 PassengersReq pr=new PassengersReq();
+					 pr.setBookingId(be.getId());
+					 pr.setFirstName(p.getFirstName());
+					 pr.setMiddleName(p.getMiddleName());
+					 pr.setLastName(p.getLastName());
+					 pr.setEmail(p.getEmail());
+					 pr.setPhoneNo(p.getPhoneNo());
+					 pr.setPassengerId(p.getId());
+					 passengerList.add(pr);
+				 }
+				br.setPassengers(passengerList);
 				bookResponseList.add(br);
 			}
 			return bookResponseList;
@@ -62,12 +78,26 @@ public class BookingEnquiryServiceImpl implements BookingEnquiryService{
 				br.setSourceCity(be.getSource());
 				br.setDestinationCity(be.getDestination());
 				br.setFlightNumber(be.getFlightName());
-				br.setTravelDate(be.getDepartDate());
+				br.setTravelDate(be.getDepartDate().toString());
 				br.setNoOfPassengers(be.getNoOfPassengers());
-				br.setBookingDate(be.getCreatedDt());
+				br.setBookingDate(be.getCreatedDt().toString());
+				List<PassengersReq> passengerList=new ArrayList<PassengersReq>();
+				List<PassengersEntity> pl=be.getPassengers();
+				for(PassengersEntity p:pl) {
+					 PassengersReq pr=new PassengersReq();
+					 pr.setBookingId(be.getId());
+					 pr.setFirstName(p.getFirstName());
+					 pr.setMiddleName(p.getMiddleName());
+					 pr.setLastName(p.getLastName());
+					 pr.setEmail(p.getEmail());
+					 pr.setPhoneNo(p.getPhoneNo());
+					 pr.setPassengerId(p.getId());
+					 passengerList.add(pr);
+				 }
+				br.setPassengers(passengerList);
 				for(InventoryEntity in:invenList) {
 					if(in.getInventoryId()==be.getBookingInventory().getInventoryId()) {
-						br.setPnr(in.getPnr());
+						br.setPnrNo(in.getPnr());
 						break;
 					}
 				}

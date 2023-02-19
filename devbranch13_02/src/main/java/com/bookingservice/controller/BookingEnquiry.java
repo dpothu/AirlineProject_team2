@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bookingservice.dto.BookingResponse;
-import com.bookingservice.entities.BookingEntity;
 import com.bookingservice.service.BookingEnquiryService;
 
 @RestController

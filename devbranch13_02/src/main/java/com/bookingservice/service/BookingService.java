@@ -1,15 +1,15 @@
 package com.bookingservice.service;
 
 import com.bookingservice.dto.BookMainReq;
-import com.bookingservice.dto.BookMainResponse;
+import com.bookingservice.dto.BookingResponse;
 import com.bookingservice.entities.BookingEntity;
 import com.bookingservice.entities.InventoryEntity;
 
 public interface BookingService {
 
 	
-	public BookMainResponse newBooking(BookMainReq bookData);
-	public BookMainResponse bookingResponse(BookingEntity bookDataForResponse, InventoryEntity inven);
+	public BookingResponse newBooking(BookMainReq bookData);
+	public BookingResponse bookingResponse(BookingEntity bookDataForResponse, InventoryEntity inven);
 	
 	
 }

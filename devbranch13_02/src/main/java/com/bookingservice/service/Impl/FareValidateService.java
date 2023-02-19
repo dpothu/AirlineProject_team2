@@ -14,7 +14,7 @@ public class FareValidateService {
 	
 	public int validatingFare(BookMainReq bookingData) {
 		logger.info("Fare Service Validating fare starts: ");
-		BookingEntity bookData = bookingData.getBookingData();
+		BookingEntity bookData = bookingData.setBookingDetails();
 		double getFare = bookData.getFareAmount();
 		if(getFare == 0.0) {
 			logger.error("Fare Service Validating fare ends: occurs fare issues");

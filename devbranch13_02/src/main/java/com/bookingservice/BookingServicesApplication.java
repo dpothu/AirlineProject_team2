@@ -46,7 +46,7 @@ public class BookingServicesApplication {
 				.title("Booking Service API's")
 				.description("The Booking Micro Services for BrownField AirLines")
 				.version("version - 0.0.1-SNAPSHOT")
-				.license("Developed By TEJA(ProfessorKTS)")
+				.license("Developed By TEJA(ProfessorKTS) & LOKI")
 				.licenseUrl("https://teja-professorkts.netlify.app/")
 				.contact(new Contact("Booking Service Dev Team", "https://teja-professorkts.netlify.app/", "kambham.teja@capgemini.com"))
 				.build();

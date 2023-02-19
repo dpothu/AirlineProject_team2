@@ -3,7 +3,6 @@ package com.bookingservice.service;
 import java.util.List;
 
 import com.bookingservice.dto.PassengersReq;
-import com.bookingservice.entities.PassengersEntity;
 
 public interface PassengersService {
 
