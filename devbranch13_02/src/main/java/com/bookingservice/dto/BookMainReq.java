@@ -27,9 +27,9 @@ public class BookMainReq {
 	private int noOfPassengers;
 	private String source;
 	private String destination;
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MMM-yyyy")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
 	private Date departDate;
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MMM-yyyy")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
 	private Date arrDate;
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="HH:mm:ss")
 	private LocalTime departTime;
