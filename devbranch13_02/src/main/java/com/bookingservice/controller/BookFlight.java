@@ -5,6 +5,12 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +58,20 @@ public class BookFlight{
 		try {
 			byte[] json = objectMapper.writeValueAsBytes(bookResponse);
 			jmsTemplate.convertAndSend("booking", json);
+			URL url = new URL("https://checkinmicroservice.azurewebsites.net/Api/Queue/Booking"); 
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection(); 
+			connection.setRequestMethod("POST"); 
+			int responseCode = connection.getResponseCode();
 		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
